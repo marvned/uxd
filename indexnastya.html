@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jane Doe - UX Designer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root,
+        html[data-theme='dark'] {
+            /* --- Dark Theme (Default) --- */
+            --background-start: #0a0a1a;
+            --background-end: #1a1a3a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0aec0;
+            --accent-primary: #00beff;
+            --accent-bg-color: #00beff;
+            --accent-text-color: #ffffff;
+            --glow-color: rgba(0, 190, 255, 0.7);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --cat-color: #e0e0e0;
+            --bird-color: #ffffff;
+            --transition-speed: 0.3s;
+        }
+
+        html[data-theme='light'] {
+            /* --- Custom Light Theme based on user image --- */
+            --background-start: #c8e6c9;
+            --background-end: #ffeb3b;
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
+            --accent-primary: #00aaff;
+            --accent-bg-color: #00aaff;
+            --accent-text-color: #ffffff;
+            --glow-color: rgba(0, 170, 255, 0.8);
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --cat-color: #2d3748;
+            --bird-color: #2d3748;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--background-start), var(--background-end));
+            color: var(--text-primary);
+            overflow-x: hidden;
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+        
+        html[data-theme='light'] body {
+            background: linear-gradient(45deg, var(--background-start), var(--background-end));
+        }
+        
+        /* General Elements */
+        h1, h2, h3 { color: var(--text-primary); transition: color var(--transition-speed) ease; }
+        p { color: var(--text-secondary); transition: color var(--transition-speed) ease; }
+        .accent-text { color: var(--accent-primary); }
+        .accent-bg { background-color: var(--accent-bg-color); color: var(--accent-text-color); }
+        nav a { color: var(--text-primary); }
+        
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            transition: background var(--transition-speed) ease, border var(--transition-speed) ease;
+            position: relative; 
+            overflow: hidden;   
+        }
+       .glowing-shadow {
+            box-shadow: 0 0 5px var(--glow-color), 0 0 10px var(--glow-color), 0 0 15px var(--glow-color);
+        }
+       .interactive-element:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+        html[data-theme='light'] .interactive-element:hover {
+            box-shadow: 0 0 15px #ff9e26; /* Orange hover glow */
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 15px color-mix(in srgb, var(--glow-color) 40%, transparent), 0 0 5px color-mix(in srgb, var(--glow-color) 30%, transparent) inset; }
+            50% { box-shadow: 0 0 25px color-mix(in srgb, var(--glow-color) 80%, transparent), 0 0 10px color-mix(in srgb, var(--glow-color) 60%, transparent) inset; }
+            100% { box-shadow: 0 0 15px color-mix(in srgb, var(--glow-color) 40%, transparent), 0 0 5px color-mix(in srgb, var(--glow-color) 30%, transparent) inset; }
+        }
+        .animated-glow {
+            animation: pulse-glow 5s ease-in-out infinite;
+        }
+
+       .flow-pulse-effect {
+            background-size: 400% 400%;
+            background-image: radial-gradient(circle at center, color-mix(in srgb, var(--glow-color) 30%, transparent), transparent 50%),
+                              linear-gradient(var(--glass-bg), var(--glass-bg));
+            animation: flow-pulse 10s ease-in-out infinite;
+        }
+        @keyframes flow-pulse {
+            0% { background-position: 0% 50%, 0 0; }
+            50% { background-position: 100% 50%, 0 0; }
+            100% { background-position: 0% 50%, 0 0; }
+        }
+
+       .glowing-border::before {
+            background: conic-gradient(from 180deg at 50% 50%, transparent 0deg, var(--glow-color) 90deg, transparent 180deg);
+        }
+        .shape { background: var(--glow-color); }
+
+        .tag-pill {
+            background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+            border: 1px solid color-mix(in srgb, var(--accent-primary) 30%, transparent);
+            color: var(--text-primary);
+        }
+       .tag-pill:hover {
+            background: color-mix(in srgb, var(--accent-primary) 30%, transparent);
+            box-shadow: 0 0 10px color-mix(in srgb, var(--accent-primary) 50%, transparent);
+        }
+        .form-input {
+            background-color: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+        }
+       .form-input:focus {
+            --tw-ring-color: var(--accent-primary);
+        }
+       .form-input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.8;
+        }
+
+        html[data-theme='light'] header .glass-card {
+            background: linear-gradient(65deg, #e43b9e, #6a2c94, #4b0082, #003366);
+        }
+        html[data-theme='light'] header a {
+            color: #fff;
+        }
+        
+        /* SVG Colors */
+        .avatar-glow-ring { stroke: var(--glow-color); }
+        .bird-wing { stroke: var(--bird-color); transition: stroke var(--transition-speed) ease; }
+
+        #running-cat .cat-body,
+        #running-cat .cat-leg {
+            fill: #FFFFFF; 
+        }
+
+        /* --- Theme Switcher --- */
+        #theme-switcher {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            z-index: 50;
+        }
+        .theme-button {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .theme-button svg, .theme-button span {
+            width: 1.75rem;
+            height: 1.75rem;
+            color: var(--text-primary);
+            font-size: 1.75rem;
+            line-height: 1.75rem;
+        }
+        
+        .project-gallery-grid img {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-gallery-grid img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        /* --- Unchanged Styles --- */
+        @keyframes rotate { from { transform: translateX(-50%) rotate(0deg); } to { transform: translateX(-50%) rotate(360deg); } }
+        .morph-button { transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+       .morph-button:hover { border-radius: 9999px; letter-spacing: 0.1em; }
+       .scroll-animate { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+       .scroll-animate.visible { opacity: 1; transform: translateY(0); }
+        #featured-image-container, #featured-description-container { will-change: transform; transition: transform 0.2s linear; }
+        #radial-menu-container { position: fixed; bottom: 2rem; right: 2rem; z-index: 50; }
+        #menu-toggle { transition: transform 0.3s ease; }
+       #menu-toggle.open { transform: rotate(45deg); }
+        .menu-item { position: absolute; bottom: 0; right: 0; transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.3s; transform: translate(0, 0) scale(0.5); opacity: 0; pointer-events: none; }
+       .menu-item.open { opacity: 1; pointer-events: auto; }
+        @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-30px); } }
+        #running-cat { position: fixed; bottom: 10px; left: -150px; width: 120px; height: auto; z-index: 100; opacity: 0; pointer-events: none; transform: translateX(0); }
+       #running-cat.running { opacity: 1; animation: runAcrossScreen 8s linear forwards; }
+        @keyframes runAcrossScreen { from { transform: translateX(0); } to { transform: translateX(calc(100vw + 150px)); } }
+        #flying-bird { position: fixed; bottom: -100px; width: 60px; z-index: 100; opacity: 0; pointer-events: none; }
+       #flying-bird.flying { opacity: 1; animation: flyUpDesktop 7s ease-in forwards; }
+        @keyframes flyUpDesktop { 0% { transform: translateY(0) translateX(0) rotate(-10deg); } 100% { transform: translateY(calc(-100vh - 100px)) translateX(50px) rotate(10deg); } }
+        @keyframes flyUpMobile { 0% { transform: translateY(0) rotate(-10deg); } 100% { transform: translateY(calc(-100vh - 100px)) rotate(10deg); } }
+        @media (max-width: 768px) { #flying-bird.flying { animation-name: flyUpMobile; } }
+    </style>
+</head>
+<body class="min-h-screen relative">
+    <div class="fixed inset-0 z-0"><div id="shape1" class="shape shape1"></div><div id="shape2" class="shape shape2"></div><div id="shape3" class="shape shape3"></div></div>
+    <header id="header" class="fixed top-0 left-0 right-0 z-40 p-4 transition-all duration-300"><div class="container mx-auto flex justify-between items-center glass-card rounded-xl p-3"><a href="#" class="text-xl font-bold tracking-wider">Jane Doe</a><nav class="hidden md:flex space-x-8"><a href="#about">About</a><a href="#skills">Skills</a><a href="#project-gallery">Project</a><a href="#bio">Bio</a><a href="#contact">Contact</a></nav></div></header>
+    <main class="relative z-10">
+        <section id="home" class="min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden" style="perspective: 1000px;"><div class="container mx-auto text-center px-4 relative flex flex-col md:flex-row items-center justify-center gap-8"><div class="md:w-1/2 md:text-left relative z-10"><h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4">Crafting Digital <br> Experiences That <span class="accent-text">Inspire</span></h1><p class="text-lg md:text-xl mb-8 max-w-xl">A UX Designer passionate about creating intuitive, beautiful, and user-centered designs.</p><a href="#project-gallery" class="morph-button glowing-border inline-block accent-bg font-semibold py-3 px-8 rounded-lg text-lg interactive-element"><span class="relative z-10">View My Work</span></a></div><div class="md:w-1/2 flex justify-center items-center relative" style="transform-style: preserve-3d;"><div id="avatar-container" class="relative w-64 h-64 md:w-80 md:h-80 interactive-element"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full"><defs><linearGradient id="hairGradient" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0%" stop-color="#FFF5C3"/><stop offset="100%" stop-color="#FDEB93"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="3.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle class="avatar-glow-ring" cx="100" cy="100" r="90" fill="none" stroke-width="2" filter="url(#glow)"/><path fill="#FCE9D8" d="M100 20 C 144.18 20 180 55.82 180 100 C 180 144.18 144.18 180 100 180 C 55.82 180 20 144.18 20 100 C 20 55.82 55.82 20 100 20 Z"/><path fill="url(#hairGradient)" d="M40,90 Q100,0 160,90 L170,120 Q100,140 30,120 Z"/><circle cx="75" cy="90" r="10" fill="#42A5F5"/><circle cx="75" cy="90" r="5" fill="#FFFFFF"/><circle cx="125" cy="90" r="10" fill="#42A5F5"/><circle cx="125" cy="90" r="5" fill="#FFFFFF"/><path stroke="#C27B7F" d="M80 130 Q100 145 120 130" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div></div></div></section>
+        <section id="about" class="py-20"><div class="container mx-auto px-4"><div class="glass-card animated-glow rounded-2xl p-8 md:p-12 max-w-4xl mx-auto scroll-animate" style="animation-delay: 0.5s;"><h2 class="text-3xl font-bold text-center mb-6">About Me</h2><p class="text-center text-lg leading-relaxed">I'm Jane, a designer who believes that great design is born from empathy and understanding. With a background in psychology, I approach every project with a deep curiosity for user behavior, striving to create solutions that are not only visually appealing but also meaningful and easy to use. I thrive on collaboration and love turning complex problems into simple, elegant digital experiences.</p></div></div></section>
+        
+        <section id="skills" class="py-20">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 scroll-animate">My Skillset</h2>
+                <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 text-center">
+                    <div class="glass-card rounded-2xl p-6 flex flex-col items-center justify-center interactive-element scroll-animate"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4 text-accent-primary"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><h3 class="font-semibold">UX Research</h3></div>
+                    <div class="glass-card rounded-2xl p-6 flex flex-col items-center justify-center interactive-element scroll-animate" style="animation-delay: 0.1s;"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4 text-accent-primary"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg><h3 class="font-semibold">UI Design</h3></div>
+                    <div class="glass-card rounded-2xl p-6 flex flex-col items-center justify-center interactive-element scroll-animate" style="animation-delay: 0.2s;"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4 text-accent-primary"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg><h3 class="font-semibold">Prototyping</h3></div>
+                    <div class="glass-card rounded-2xl p-6 flex flex-col items-center justify-center interactive-element scroll-animate" style="animation-delay: 0.3s;"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4 text-accent-primary"><path d="M5 12h14M12 5l7 7-7 7"></path></svg><h3 class="font-semibold">Wireframing</h3></div>
+                    <div class="glass-card rounded-2xl p-6 flex flex-col items-center justify-center interactive-element scroll-animate" style="animation-delay: 0.4s;"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4 text-accent-primary"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg><h3 class="font-semibold">User Testing</h3></div>
+                    <div class="glass-card rounded-2xl p-6 flex flex-col items-center justify-center interactive-element scroll-animate" style="animation-delay: 0.5s;"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4 text-accent-primary"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-7.07 7.07a5.4 5.4 0 0 0 0 7.65l7.07 7.07a5.4 5.4 0 0 0 7.65 0l7.07-7.07a5.4 5.4 0 0 0 0-7.65z"></path><line x1="12" y1="12" x2="12" y2="12"></line></svg><h3 class="font-semibold">Figma</h3></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === NEW Project Gallery Section === -->
+        <section id="project-gallery" class="py-20 overflow-hidden">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12 scroll-animate glass-card animated-glow rounded-2xl max-w-4xl mx-auto p-6">
+                    <h2 class="text-3xl font-bold">Project Description: Restaurant Branding</h2>
+                    <p class="mt-4 text-lg max-w-2xl mx-auto">A deep dive into the branding process for "The Golden Ladle," a modern eatery focused on fresh, local ingredients. This project showcases the journey from initial concept to a full-fledged brand identity.
+                    </p>
+                </div>
+        
+                <!-- Block 1: Conceptualization -->
+                <div class="mb-16">
+                    <p class="text-lg leading-relaxed mb-8 max-w-3xl mx-auto text-center scroll-animate">
+                        <b>Step 1: Conceptualization & Mood Boards.</b> Our journey began with exploring various visual directions to capture the restaurant's unique ambiance of rustic elegance. We focused on typography, color palettes, and initial logo sketches to define the core feeling of the brand.
+                    </p>
+                    <div class="project-gallery-grid grid grid-cols-2 md:grid-cols-4 gap-4 scroll-animate">
+                        <div class="md:col-span-2"><img src="https://placehold.co/800x400/1a1a3a/ffffff?text=Main+Moodboard" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div><img src="https://placehold.co/400x400/2a2a5a/ffffff?text=Color+Palette" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div><img src="https://placehold.co/400x400/2a2a5a/ffffff?text=Texture+Ideas" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div><img src="https://placehold.co/400x400/2a2a5a/ffffff?text=Font+Exploration" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div><img src="https://placehold.co/400x400/2a2a5a/ffffff?text=Initial+Sketch" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div class="md:col-span-2"><img src="https://placehold.co/800x400/1a1a3a/ffffff?text=Inspiration" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                    </div>
+                </div>
+        
+                <!-- Block 2: Logo Development -->
+                <div class="mb-16">
+                    <p class="text-lg leading-relaxed mb-8 max-w-3xl mx-auto text-center scroll-animate">
+                        <b>Step 2: Logo & Visual Identity.</b> We refined the chosen concept, developing a versatile logo system. This stage involved creating digital mockups to see the brand in context on signage, menus, and staff uniforms, ensuring consistency across all touchpoints.
+                    </p>
+                    <div class="project-gallery-grid grid grid-cols-2 md:grid-cols-3 gap-4 scroll-animate">
+                        <div class="md:col-span-2"><img src="https://placehold.co/800x400/0f0f2f/ffffff?text=Final+Logo+Suite" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div><img src="https://placehold.co/400x400/1f1f4f/ffffff?text=Logo+Mark" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div><img src="https://placehold.co/400x400/1f1f4f/ffffff?text=Signage+Mockup" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div><img src="https://placehold.co/400x400/1f1f4f/ffffff?text=Apron+Mockup" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div><img src="https://placehold.co/400x400/1f1f4f/ffffff?text=Business+Card" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                    </div>
+                </div>
+        
+                <!-- Block 3: Print & Packaging -->
+                <div class="mb-16">
+                    <p class="text-lg leading-relaxed mb-8 max-w-3xl mx-auto text-center scroll-animate">
+                        <b>Step 3: Print Collateral & Packaging.</b> The menu is a key brand touchpoint. We designed a clean, readable menu and extended the brand identity to takeout bags, cups, and other packaging to create a cohesive off-premise experience.
+                    </p>
+                    <div class="project-gallery-grid grid grid-cols-2 md:grid-cols-4 gap-4 scroll-animate">
+                        <div><img src="https://placehold.co/400x400/2f2f6f/ffffff?text=Menu+Cover" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div class="md:col-span-2"><img src="https://placehold.co/800x400/3a3a7a/ffffff?text=Menu+Spread" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div><img src="https://placehold.co/400x400/2f2f6f/ffffff?text=Coaster+Design" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div class="md:col-span-2"><img src="https://placehold.co/800x400/3a3a7a/ffffff?text=Takeout+Bag" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div><img src="https://placehold.co/400x400/2f2f6f/ffffff?text=Coffee+Cup" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                         <div><img src="https://placehold.co/400x400/2f2f6f/ffffff?text=Packaging" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                    </div>
+                </div>
+        
+                <!-- Block 4: Interior Branding -->
+                <div class="mb-16">
+                    <p class="text-lg leading-relaxed mb-8 max-w-3xl mx-auto text-center scroll-animate">
+                        <b>Step 4: Interior & Environmental Graphics.</b> The brand was seamlessly integrated into the physical space. We designed wall graphics, wayfinding signage, and other decorative elements that reinforce the brand story and create an immersive atmosphere for guests.
+                    </p>
+                    <div class="project-gallery-grid grid grid-cols-2 md:grid-cols-3 gap-4 scroll-animate">
+                        <div><img src="https://placehold.co/400x400/4a4a8a/ffffff?text=Wall+Mural" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div class="md:col-span-2"><img src="https://placehold.co/800x400/5a5a9a/ffffff?text=Interior+View" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div><img src="https://placehold.co/400x400/4a4a8a/ffffff?text=Restroom+Sign" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div class="md:col-span-2"><img src="https://placehold.co/800x400/5a5a9a/ffffff?text=Entrance+View" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div><img src="https://placehold.co/400x400/4a4a8a/ffffff?text=Detail+Shot" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                    </div>
+                </div>
+        
+                <!-- Block 5: Digital Presence -->
+                <div class="mb-16">
+                    <p class="text-lg leading-relaxed mb-8 max-w-3xl mx-auto text-center scroll-animate">
+                        <b>Step 5: Digital Presence.</b> To bring the brand online, we designed a responsive website and created a suite of social media templates. This ensures a consistent and engaging visual style for attracting new guests and communicating with loyal customers.
+                    </p>
+                    <div class="project-gallery-grid grid grid-cols-2 md:grid-cols-4 gap-4 scroll-animate">
+                        <div class="md:col-span-2"><img src="https://placehold.co/800x400/6a6aaa/ffffff?text=Website+Homepage" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div><img src="https://placehold.co/400x400/7a7aba/ffffff?text=Mobile+View" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div><img src="https://placehold.co/400x400/7a7aba/ffffff?text=IG+Post+Template" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div><img src="https://placehold.co/400x400/7a7aba/ffffff?text=IG+Story" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div class="md:col-span-2"><img src="https://placehold.co/800x400/6a6aaa/ffffff?text=Facebook+Banner" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                        <div><img src="https://placehold.co/400x400/7a7aba/ffffff?text=Booking+UI" alt="Project Image" class="w-full h-full object-cover rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="featured-work" class="py-20 overflow-hidden"><div class="container mx-auto px-4"><div class="glass-card animated-glow rounded-2xl p-8 md:p-12"><div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center"><div id="featured-image-container" class="rounded-lg overflow-hidden"><img src="https://placehold.co/800x600/1a1a3a/00beff?text=Mobile+Banking+App" alt="Featured Project Image" class="w-full h-auto rounded-lg shadow-2xl interactive-element"></div><div id="featured-description-container"><h2 class="text-3xl md:text-4xl font-bold mb-4">Featured Work: Mobile Banking App</h2><p class="text-lg leading-relaxed mb-6">A complete redesign of a mobile banking application focused on simplifying user flow and creating a more secure, accessible, and friendly experience. We used extensive user research to identify pain points and introduced features like AI-powered budgeting and personalized financial insights.</p><div class="flex flex-wrap gap-3 mb-8"><span class="tag-pill text-sm font-medium py-1 px-3 rounded-full">UX Research</span><span class="tag-pill text-sm font-medium py-1 px-3 rounded-full">UI Design</span><span class="tag-pill text-sm font-medium py-1 px-3 rounded-full">Prototyping</span><span class="tag-pill text-sm font-medium py-1 px-3 rounded-full">FinTech</span></div><a href="#" class="morph-button glowing-border inline-block accent-bg font-semibold py-3 px-8 rounded-lg text-lg interactive-element"><span class="relative z-10">View Case Study</span></a></div></div></div></div></section>
+        <section id="bio" class="py-20"><div class="container mx-auto px-4"><h2 class="text-3xl font-bold text-center mb-12 scroll-animate">My Journey</h2><div class="glass-card flow-pulse-effect rounded-2xl p-8 md:p-12 max-w-5xl mx-auto scroll-animate"><div class="grid md:grid-cols-3 gap-8 md:gap-12 items-center"><div class="md:col-span-1 flex justify-center"><img src="https://placehold.co/400x400/2a2a5a/ffffff?text=Jane+Doe" alt="Jane Doe Headshot" class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover shadow-lg border-4" style="border-color: rgba(255,255,255,0.1)"></div><div class="md:col-span-2"><h3 class="text-2xl font-semibold mb-4">From Curiosity to Creation</h3><p class="mb-4 leading-relaxed">My path to UX design wasn't a straight line, but a journey fueled by a fascination with how people think and interact with the world. With a degree in Cognitive Science, I started my career in research, but I always felt a pull towards a more creative application of my insights. That's when I discovered the world of UX, a perfect blend of empathy, analysis, and artistry.</p><p class="leading-relaxed">Today, I channel that passion into designing digital products. Outside of work, I'm an avid hiker, a hobbyist photographer, and I believe that the best ideas often come when you're unplugged and exploring the world around you. I bring this perspective of balance and curiosity to every project I take on.</p></div></div></div></div></section>
+                
+        <section id="contact" class="py-20"><div class="container mx-auto px-4"><div class="glass-card animated-glow rounded-2xl p-8 md:p-12 max-w-2xl mx-auto scroll-animate" style="animation-delay: 1.5s;"><h2 class="text-3xl font-bold text-center mb-2">Let's Connect</h2><p class="text-center mb-8">Have a project in mind or just want to say hi? Feel free to reach out!</p><form><div class="mb-4"><input type="text" placeholder="Your Name" class="form-input w-full p-3 rounded-lg ring-2 ring-transparent focus:ring-2"></div><div class="mb-4"><input type="email" placeholder="Your Email" class="form-input w-full p-3 rounded-lg ring-2 ring-transparent focus:ring-2"></div><div class="mb-6"><textarea placeholder="Your Message" rows="4" class="form-input w-full p-3 rounded-lg ring-2 ring-transparent focus:ring-2"></textarea></div><div class="text-center mb-4"><a href="mailto:email@email.com" class="text-text-secondary hover:text-accent-primary transition-colors">email@email.com</a></div><div class="text-center"><button type="submit" class="morph-button glowing-border inline-block accent-bg font-semibold py-3 px-10 rounded-lg text-lg interactive-element"><span class="relative z-10">Send Message</span></button></div></form></div></div></section>
+        
+    </main>
+
+    <footer class="relative z-10 py-8 border-t" style="border-color: rgba(255,255,255,0.1)">
+        <div class="container mx-auto px-4 text-center text-text-secondary">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="hover:text-accent-primary transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+                <a href="#" class="hover:text-accent-primary transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                <a href="#" class="hover:text-accent-primary transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+            </div>
+            <p>&copy; 2025 Jane Doe. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div id="radial-menu-container">
+        <div id="menu-items-wrapper" class="relative w-16 h-16 flex items-center justify-center">
+            <a href="#about" class="menu-item glass-card w-12 h-12 rounded-full flex items-center justify-center" style="transition-delay: 0s;"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg></a>
+            <a href="#skills" class="menu-item glass-card w-12 h-12 rounded-full flex items-center justify-center" style="transition-delay: 0.05s;"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg></a>
+            <a href="#project-gallery" class="menu-item glass-card w-12 h-12 rounded-full flex items-center justify-center" style="transition-delay: 0.1s;"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg></a>
+            <a href="#bio" class="menu-item glass-card w-12 h-12 rounded-full flex items-center justify-center" style="transition-delay: 0.15s;"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 012-2h4a2 2 0 012 2v1m-4 0h4" /></svg></a>
+            <a href="#contact" class="menu-item glass-card w-12 h-12 rounded-full flex items-center justify-center" style="transition-delay: 0.2s;"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg></a>
+        </div>
+        <button id="menu-toggle" class="absolute bottom-0 right-0 glass-card glowing-shadow w-16 h-16 rounded-full flex items-center justify-center accent-bg"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg></button>
+    </div>
+    
+    <div id="running-cat"><svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><style>.cat-leg{animation:walk 0.4s linear infinite;}.front-leg{animation-delay:-0.2s;}@keyframes walk{50%{transform:translateY(-15px);}}</style><path class="cat-body" d="M50 75 C80 50, 120 50, 150 75 L 155 72 Q 175 45 190 70 C 180 60 160 65 150 75 Z" /><rect class="cat-leg front-leg" x="80" y="70" width="15" height="30" rx="7.5" /><rect class="cat-leg" x="120" y="70" width="15" height="30" rx="7.5" /><circle class="cat-body" cx="60" cy="50" r="30"/><polygon class="cat-body" points="40,30 60,10 65,30"/><polygon class="cat-body" points="70,30 90,10 85,30"/></svg></div>
+    <div id="flying-bird"><svg viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg"><style>.wing { animation: flap 0.4s ease-in-out infinite alternate; transform-origin: 50% 50%; } @keyframes flap { from { transform: rotate(-20deg); } to { transform: rotate(20deg); } }</style><path class="bird-wing wing" d="M 0,25 Q 50,0 100,25" stroke-width="4" fill="none" stroke-linecap="round" /></svg></div>
+    <div id="theme-switcher"><button id="theme-toggle-button" class="theme-button glass-card glowing-shadow" title="Toggle Theme"></button></div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const doc = document.documentElement;
+            const themeToggleButton = document.getElementById('theme-toggle-button');
+
+            const icons = {
+                light: `<span>☀️</span>`,
+                dark: `<span>🌙</span>`
+            };
+
+            const applyTheme = (theme) => {
+                if (theme === 'light') {
+                    doc.setAttribute('data-theme', 'light');
+                    themeToggleButton.innerHTML = icons.dark;
+                } else {
+                    doc.setAttribute('data-theme', 'dark');
+                    themeToggleButton.innerHTML = icons.light;
+                }
+                localStorage.setItem('theme', theme);
+            };
+
+            themeToggleButton.addEventListener('click', () => {
+                const currentTheme = doc.getAttribute('data-theme') || 'dark';
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                applyTheme(newTheme);
+            });
+
+            applyTheme(localStorage.getItem('theme') || 'dark');
+
+            const featuredImage = document.getElementById('featured-image-container');
+            const featuredDesc = document.getElementById('featured-description-container');
+            const handleFeaturedScroll = () => {
+                if (!featuredImage || !featuredDesc) return;
+                const rect = document.getElementById('featured-work').getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const progress = (rect.top + rect.height / 2 - window.innerHeight / 2) / (window.innerHeight / 2);
+                    featuredImage.style.transform = `translateY(${-progress * 40}px)`;
+                    featuredDesc.style.transform = `translateY(${-progress * 20}px)`;
+                }
+            };
+            
+            const onScroll = () => {
+                document.getElementById('header').style.backgroundColor = window.scrollY > 50 ? 'color-mix(in srgb, var(--background-start) 50%, transparent)' : 'transparent';
+                document.querySelectorAll('.shape').forEach((shape, index) => {
+                    shape.style.transform = `translateY(${window.scrollY * ((index + 1) * 0.1)}px)`;
+                });
+                handleFeaturedScroll();
+            };
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); scrollObserver.unobserve(entry.target); } });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.scroll-animate').forEach(el => scrollObserver.observe(el));
+
+            const avatarContainer = document.getElementById('avatar-container');
+            if (avatarContainer) {
+                document.getElementById('home').addEventListener('mousemove', (e) => {
+                    const { left, top, width, height } = avatarContainer.getBoundingClientRect();
+                    const rotateX = (e.clientY - (top + height / 2)) / 20;
+                    const rotateY = ((left + width / 2) - e.clientX) / 20;
+                    avatarContainer.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+            }
+
+            const menuToggle = document.getElementById('menu-toggle');
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('open');
+                menuItems.forEach((item, index) => {
+                    item.classList.toggle('open');
+                    const isOpen = menuToggle.classList.contains('open');
+                    if (isOpen) {
+                        const angle = -90 + (index * (180 / (menuItems.length -1))), radius = 90;
+                        item.style.transform = `translate(${radius * Math.cos(angle * Math.PI / 180)}px, ${radius * Math.sin(angle * Math.PI / 180)}px) scale(1)`;
+                    } else {
+                        item.style.transform = 'translate(0, 0) scale(0.5)';
+                    }
+                });
+            });
+
+            const catAnimationDuration = 8000;
+            setTimeout(() => {
+                const cat = document.getElementById('running-cat');
+                if (cat) {
+                    cat.classList.add('running');
+                    setTimeout(() => {
+                        const bird = document.getElementById('flying-bird');
+                        if (bird) {
+                            if (window.innerWidth <= 768) {
+                                bird.style.left = '50%';
+                                bird.style.transform = 'translateX(-50%)';
+                            } else {
+                                bird.style.left = `${Math.random() * 80 + 10}%`;
+                            }
+                            bird.classList.add('flying');
+                        }
+                    }, catAnimationDuration - 4000); 
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
+
